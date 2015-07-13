@@ -3,7 +3,8 @@ import java.awt.*;
 
 public class Player{
     private int x,y,width,height;
-    private int speed;
+    private final double SPEED = 40;
+    private double speed;
     private boolean links,rechts;
     private Rectangle rect;
     public Player(int x,int y,int width,int height){
@@ -11,7 +12,7 @@ public class Player{
         this.y = y;
         this.width = width;
         this.height = height;
-        speed = 40;
+        speed = SPEED;
         links = false;
         rechts = false;
         rect = new Rectangle(x,(int)(y+(height*0.5)),width,height);
@@ -23,6 +24,10 @@ public class Player{
         g.drawRect(x,(int)(y+(height*0.5)),width,height);
     }
 
+    public void actualiseSpeed(double percentage){
+        speed = (int)(SPEED*percentage);
+    }
+    
     public void berechnen(){
         move();
     }
@@ -57,11 +62,11 @@ public class Player{
         this.links = links;
     }
     
-    public void setSpeed(int speed){
+    public void setSpeed(double speed){
         this.speed = speed;
     }
 
-    public int getSpeed(){
+    public double getSpeed(){
         return speed;
     }
 

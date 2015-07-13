@@ -5,6 +5,7 @@ public class Sun{
     private int x,y,width,height;
     private double speed;
     private double xSpeed,ySpeed;
+    private boolean ingame;
     private Rectangle rect;
     public Sun(int x,int y,int width,int height){
         this.x = x;
@@ -14,7 +15,7 @@ public class Sun{
         speed = 30;
         
         recalculate();
-        
+        ingame = true;
         rect = new Rectangle(x,y,width,height);
     }
     
@@ -47,6 +48,14 @@ public class Sun{
         ySpeed = ySpeed/length;
         xSpeed*=speed;
         ySpeed*=speed;
+    }
+    
+    public boolean isIngame(){
+        return ingame;
+    }
+    
+    public void setIngame(boolean ingame){
+        this.ingame = ingame;
     }
     
     public double getXSpeed(){
