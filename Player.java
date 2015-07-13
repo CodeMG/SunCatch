@@ -14,11 +14,13 @@ public class Player{
         speed = 40;
         links = false;
         rechts = false;
-        rect = new Rectangle(x,y,width,height);
+        rect = new Rectangle(x,(int)(y+(height*0.5)),width,height);
     }
 
     public void zeichnen(Graphics g,JPanel panel){
         g.drawImage(Pictures.getFlower(),x,y,panel);
+        g.setColor(Color.RED);
+        g.drawRect(x,(int)(y+(height*0.5)),width,height);
     }
 
     public void berechnen(){
@@ -32,7 +34,7 @@ public class Player{
         else if(links){
             x-=speed;
         }
-        rect = new Rectangle(x,y,width,height);
+        rect = new Rectangle(x,(int)(y+(height*0.5)),width,height);
     }
 
     public Rectangle getRect(){

@@ -10,7 +10,7 @@ public class GamePanel extends JPanel implements KeyListener{
         setLayout(null);
         addKeyListener(this);
         
-        player = new Player(350,550,100,50);
+        player = new Player(350,550,128,16);
         
         suns = new Sun[10 ];
         for(int i = 0;i < suns.length;i++){
