@@ -75,7 +75,7 @@ public class Sun{
     }
     
     public void zeichnen(Graphics g,JPanel panel){
-        g.drawImage(Pictures.getSun(),x,y,panel);
+        g.drawImage(Pictures.getSun(),x,y,width,height,panel);
     }
     
     public Rectangle getRect(){

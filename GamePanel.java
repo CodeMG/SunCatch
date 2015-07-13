@@ -14,9 +14,9 @@ public class GamePanel extends JPanel implements KeyListener{
         player = new Player(350,550,128,16);
 
         lostSuns = 0;
-        suns = new Sun[10];
+        suns = new Sun[1];
         for(int i = 0;i < suns.length;i++){
-            suns[i] = new Sun((int)(Math.random()*(width-64)),50,64,64);
+            suns[i] = new Sun((int)(Math.random()*(width-64)),50,48,48);
         }
 
         new GameLoop(this);
@@ -42,18 +42,33 @@ public class GamePanel extends JPanel implements KeyListener{
         for(int i = 0; i < suns.length;i++){
             if(suns[i].isIngame()){
                 if(player.getRect().intersects(suns[i].getRect())){
-                    double a = suns[i].getX()-player.getX();
+                    double a = (suns[i].getX()+(suns[i].getWidth()*0.5))-player.getX();
                     if(a <= 0){
                         a = 0;
                     }
-                    a = a/player.getWidth();
-                    if(a <= 0.3333){
-                        suns[i].setYSpeed(-Math.abs(suns[i].getYSpeed()));
-                        suns[i].setXSpeed(suns[i].getXSpeed()-Math.random());
+                    else if(a >= player.getWidth()){
+                        a = player.getWidth();
                     }
-                    else if(a>= 0.6666){
-                        suns[i].setYSpeed(-Math.abs(suns[i].getYSpeed()));
-                        suns[i].setXSpeed(suns[i].getXSpeed()+Math.random());
+                    a = a/player.getWidth();
+                    double x = suns[i].getXSpeed();
+                    double y = suns[i].getYSpeed();
+                    if(a <= 0.5){
+                        double winkel = (Math.random()*50)+110;
+                        x = (suns[i].getXSpeed()*Math.cos(Math.toRadians(winkel)))-(suns[i].getYSpeed()*Math.sin(Math.toRadians(winkel)));
+                        y = (suns[i].getXSpeed()*Math.sin(Math.toRadians(winkel)))+(suns[i].getYSpeed()*Math.cos(Math.toRadians(winkel)));
+                        suns[i].setXSpeed((int)x);
+                        suns[i].setYSpeed((int)y);
+                        System.out.println(x);
+                        System.out.println(y);
+                    }
+                    else if(a>= 0.5){
+                       double winkel = (Math.random()*50)+20;
+                        x = (suns[i].getXSpeed()*Math.cos(Math.toRadians(winkel)))-(suns[i].getYSpeed()*Math.sin(Math.toRadians(winkel)));
+                        y = (suns[i].getXSpeed()*Math.sin(Math.toRadians(winkel)))+(suns[i].getYSpeed()*Math.cos(Math.toRadians(winkel)));
+                        suns[i].setXSpeed((int)x);
+                        suns[i].setYSpeed((int)y);
+                        System.out.println(x);
+                        System.out.println(y);
                     }
                     suns[i].setYSpeed(-Math.abs(suns[i].getYSpeed()));
                 }
@@ -107,4 +122,6 @@ public class GamePanel extends JPanel implements KeyListener{
             player.setRechts(false);
         }
     }
+    
+    
 }
