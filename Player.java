@@ -1,0 +1,98 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class Player{
+    private int x,y,width,height;
+    private int speed;
+    private boolean links,rechts;
+    private Rectangle rect;
+    public Player(int x,int y,int width,int height){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        speed = 40;
+        links = false;
+        rechts = false;
+        rect = new Rectangle(x,y,width,height);
+    }
+
+    public void zeichnen(Graphics g,JPanel panel){
+        g.drawImage(Pictures.getFlower(),x,y,panel);
+    }
+
+    public void berechnen(){
+        move();
+    }
+
+    private void move(){
+        if(rechts){
+            x+=speed;
+        }
+        else if(links){
+            x-=speed;
+        }
+        rect = new Rectangle(x,y,width,height);
+    }
+
+    public Rectangle getRect(){
+        return rect;
+    }
+    
+    public boolean getRechts(){
+        return rechts;
+    }
+    
+    public void setRechts(boolean rechts){
+        this.rechts = rechts;
+    }
+    
+    public boolean getLinks(){
+        return links;
+    }
+    
+    public void setLinks(boolean links){
+        this.links = links;
+    }
+    
+    public void setSpeed(int speed){
+        this.speed = speed;
+    }
+
+    public int getSpeed(){
+        return speed;
+    }
+
+    public int getX(){
+        return x;
+    }
+
+    public void setX(int x){
+        this.x = x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    public void setY(int y){
+        this.y = y;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public void setWidth(int width){
+        this.width = width;
+    }
+
+    public int getHeight(){
+        return height;
+    }
+
+    public void setHeight(int height){
+        this.height = height;
+    }
+
+}

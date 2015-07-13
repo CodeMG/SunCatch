@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Pictures()
+comment1.params=pfad
+comment1.target=java.awt.image.BufferedImage\ bildHinzufuegen(java.lang.String)
+comment2.params=image\ x\ y\ b\ h
+comment2.target=java.awt.image.BufferedImage\ bildZerlegen(java.awt.image.BufferedImage,\ int,\ int,\ int,\ int)
+comment3.params=
+comment3.target=java.awt.image.BufferedImage\ getBackground()
+comment4.params=
+comment4.target=java.awt.image.BufferedImage\ getSun()
+comment5.params=
+comment5.target=java.awt.image.BufferedImage\ getFlower()
+numComments=6
