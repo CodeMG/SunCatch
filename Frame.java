@@ -3,6 +3,7 @@ import java.awt.*;
 
 public class Frame extends JFrame{
     private GamePanel panel;
+    private MainMenue menue;
     public Frame(){
         pack();
         setSize(800,600);
@@ -17,10 +18,9 @@ public class Frame extends JFrame{
 		int frameHeight = getHeight() - decorationHeight;
         
 		setSize(800+decorationWidth,600+decorationHeight);
-
-		panel = new GamePanel(getWidth(),getHeight());
-		add(panel);
 		
+		menue = new MainMenue(getWidth(),getHeight());
+		add(menue);
 		setVisible(true);
     }
     

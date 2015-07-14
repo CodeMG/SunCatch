@@ -3,12 +3,16 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.*;
 public class Pictures{
-    private static BufferedImage background,sun,flower;
+    private static BufferedImage background,sun,flower,start,options,credits,exit;
     
     public Pictures(){
         background = bildHinzufuegen("Bilder//background.png");
         sun = bildHinzufuegen("Bilder//sonne.png");
         flower = bildHinzufuegen("Bilder//blume.png");
+        start = bildHinzufuegen("Bilder//start.png");
+        options = bildHinzufuegen("Bilder//options.png");
+        credits = bildHinzufuegen("Bilder//credits.png");
+        exit = bildHinzufuegen("Bilder//exit.png");
     }
 
     public BufferedImage bildHinzufuegen(String pfad){
@@ -34,5 +38,21 @@ public class Pictures{
     
     public static BufferedImage getFlower(){
         return flower;
+    }
+    
+    public static BufferedImage getStart(){
+        return start;
+    }
+    
+    public static BufferedImage getOptions(){
+        return options;
+    }
+    
+    public static BufferedImage getCredits(){
+        return credits;
+    }
+    
+    public static BufferedImage getExit(){
+        return exit;
     }
 }
