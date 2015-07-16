@@ -27,17 +27,27 @@ public class Player{
     public void actualiseSpeed(double percentage){
         speed = (int)(SPEED*percentage);
     }
-    
+
     public void berechnen(){
         move();
     }
 
     private void move(){
         if(rechts){
-            x+=speed;
+            if(x+width+speed>= 800){
+                x = 800-width;
+            }
+            else{
+                x+=speed;
+            }
         }
         else if(links){
-            x-=speed;
+            if(x-speed <= 0){
+                x = 0;
+            }
+            else{
+                x-=speed;
+            }
         }
         rect = new Rectangle(x,(int)(y+(height*0.5)),width,height);
     }
@@ -45,23 +55,23 @@ public class Player{
     public Rectangle getRect(){
         return rect;
     }
-    
+
     public boolean getRechts(){
         return rechts;
     }
-    
+
     public void setRechts(boolean rechts){
         this.rechts = rechts;
     }
-    
+
     public boolean getLinks(){
         return links;
     }
-    
+
     public void setLinks(boolean links){
         this.links = links;
     }
-    
+
     public void setSpeed(double speed){
         this.speed = speed;
     }
