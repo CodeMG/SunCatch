@@ -13,16 +13,21 @@ public class Frame extends JFrame{
         new Pictures();
         
         int decorationWidth = getInsets().left + getInsets().right;
-		int decorationHeight = getInsets().top + getInsets().bottom;
-		int frameWidth = getWidth() - decorationWidth;
-		int frameHeight = getHeight() - decorationHeight;
+        int decorationHeight = getInsets().top + getInsets().bottom;
+        int frameWidth = getWidth() - decorationWidth;
+        int frameHeight = getHeight() - decorationHeight;
         
-		setSize(800+decorationWidth,600+decorationHeight);
-		
-		menue = new MainMenue(getWidth(),getHeight());
-		add(menue);
-		setVisible(true);
+        setSize(800+decorationWidth,600+decorationHeight);
+        
+        menue = new MainMenue(getWidth(),getHeight(),this);
+        add(menue);
+        setVisible(true);
     }
-    
+
+    public void showGamePanel(){
+        menue.setVisible(false);
+        panel = new GamePanel(800,600);
+        add(panel);
+    }
     
 }

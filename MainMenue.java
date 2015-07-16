@@ -3,7 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 public class MainMenue extends JPanel implements ActionListener{
     private JButton start,options,credits,exit;
-    public MainMenue(int width,int height){
+    private Frame container;
+    public MainMenue(int width,int height,Frame container){
         setSize(width,height);
         setLayout(null);
         
@@ -51,6 +52,8 @@ public class MainMenue extends JPanel implements ActionListener{
         exit.addActionListener(this);
         add(exit);
         
+        this.container = container;
+        
         setVisible(true);
     }
     
@@ -62,7 +65,7 @@ public class MainMenue extends JPanel implements ActionListener{
     
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == start){
-            
+            container.showGamePanel();
         }
         else if(e.getSource() == options){
             
