@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements KeyListener{
         if(pointCounter <= 0){
             suns.add(new Sun(400,300,32,32));
             pointCounter  = pointsTilNextSun;
+            pointsTilNextSun = (int)Math.pow(biggestSun,2)*500;
         }
         
         collision();
