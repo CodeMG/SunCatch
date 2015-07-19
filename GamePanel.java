@@ -1,11 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 public class GamePanel extends JPanel implements KeyListener{
     private Player player;
-    private Sun[] suns;
+    private ArrayList<Sun> suns;
     private int lostSuns;
-    private int level = 1;
+    private int biggestSun;
+    private int totalPoints;
+    private int pointsTilNextSun;
+    private int pointCounter;
     public GamePanel(int width,int height){
         setSize(800,600);
         setLayout(null);
@@ -13,36 +17,42 @@ public class GamePanel extends JPanel implements KeyListener{
 
         player = new Player(350,550,128,16);
 
+        biggestSun = 0;
         lostSuns = 0;
-        suns = new Sun[1];
-        for(int i = 0;i < suns.length;i++){
-            suns[i] = new Sun((int)(Math.random()*(width-64)),50,48,48);
-        }
-
+        pointsTilNextSun = 3000;
+        pointCounter = 3000;
+        
+        suns = new ArrayList<Sun>();
+        suns.add(new Sun(400,300,32,32));
         new GameLoop(this);
     }
 
-    private void reload(){
-        level++;
-        suns = new Sun[(int)Math.log(level)];
-    }
-
     public void berechnen(){
-        for(int i = 0; i < suns.length;i++){
-            suns[i].berechnen();
+        for(int i = 0; i < suns.size();i++){
+            suns.get(i).berechnen();
+            totalPoints+=suns.get(i).getPoints();
+            pointCounter-=suns.get(i).getPoints();
         }
+        if(pointCounter <= 0){
+            suns.add(new Sun(400,300,32,32));
+            pointCounter  = pointsTilNextSun;
+        }
+        
         collision();
         player.berechnen();
-        double sunsOriginal = suns.length;
-        player.actualiseSpeed((sunsOriginal-lostSuns)/sunsOriginal);
+        if(suns.size() > biggestSun){
+            biggestSun = suns.size();
+        }
+        player.actualiseSpeed((double)((double)suns.size()/(double)biggestSun));
         
     }
 
     public void collision(){
-        for(int i = 0; i < suns.length;i++){
-            if(suns[i].isIngame()){
-                if(player.getRect().intersects(suns[i].getRect())){
-                    double a = (suns[i].getX()+(suns[i].getWidth()*0.5))-player.getX();
+        for(int i = 0; i < suns.size();i++){
+            Sun sun = suns.get(i);
+            if(sun.isIngame()){
+                if(player.getRect().intersects(sun.getRect())){
+                    double a = (sun.getX()+(sun.getWidth()*0.5))-player.getX();
                     if(a <= 0){
                         a = 0;
                     }
@@ -50,37 +60,32 @@ public class GamePanel extends JPanel implements KeyListener{
                         a = player.getWidth();
                     }
                     a = a/player.getWidth();
-                    double x = suns[i].getXSpeed();
-                    double y = suns[i].getYSpeed();
+                    double x = sun.getXSpeed();
+                    double y = sun.getYSpeed();
                     if(a <= 0.5){
                         double winkel = (Math.random()*50)+110;
-                        x = (suns[i].getXSpeed()*Math.cos(Math.toRadians(winkel)))-(suns[i].getYSpeed()*Math.sin(Math.toRadians(winkel)));
-                        y = (suns[i].getXSpeed()*Math.sin(Math.toRadians(winkel)))+(suns[i].getYSpeed()*Math.cos(Math.toRadians(winkel)));
-                        suns[i].setXSpeed((int)x);
-                        suns[i].setYSpeed((int)y);
-                        System.out.println(x);
-                        System.out.println(y);
+                        x = (sun.getXSpeed()*Math.cos(Math.toRadians(winkel)))-(sun.getYSpeed()*Math.sin(Math.toRadians(winkel)));
+                        y = (sun.getXSpeed()*Math.sin(Math.toRadians(winkel)))+(sun.getYSpeed()*Math.cos(Math.toRadians(winkel)));
+                        sun.setXSpeed((int)x);
+                        sun.setYSpeed((int)y);
                     }
                     else if(a>= 0.5){
                        double winkel = (Math.random()*50)+20;
-                        x = (suns[i].getXSpeed()*Math.cos(Math.toRadians(winkel)))-(suns[i].getYSpeed()*Math.sin(Math.toRadians(winkel)));
-                        y = (suns[i].getXSpeed()*Math.sin(Math.toRadians(winkel)))+(suns[i].getYSpeed()*Math.cos(Math.toRadians(winkel)));
-                        suns[i].setXSpeed((int)x);
-                        suns[i].setYSpeed((int)y);
-                        System.out.println(x);
-                        System.out.println(y);
+                        x = (sun.getXSpeed()*Math.cos(Math.toRadians(winkel)))-(sun.getYSpeed()*Math.sin(Math.toRadians(winkel)));
+                        y = (sun.getXSpeed()*Math.sin(Math.toRadians(winkel)))+(sun.getYSpeed()*Math.cos(Math.toRadians(winkel)));
+                        sun.setXSpeed((int)x);
+                        sun.setYSpeed((int)y);
                     }
-                    suns[i].setYSpeed(-Math.abs(suns[i].getYSpeed()));
+                    sun.setYSpeed(-Math.abs(sun.getYSpeed()));
                 }
-                if(((suns[i].getX()+suns[i].getXSpeed()+suns[i].getWidth()) >= getWidth()) || (suns[i].getX()+suns[i].getXSpeed() <= 0)){
-                    suns[i].setXSpeed(-suns[i].getXSpeed());
+                if(((sun.getX()+sun.getXSpeed()+sun.getWidth()) >= getWidth()) || (sun.getX()+sun.getXSpeed() <= 0)){
+                    sun.setXSpeed(-sun.getXSpeed());
                 }
-                if((suns[i].getY()+suns[i].getYSpeed() <= 0)){
-                    suns[i].setYSpeed(-suns[i].getYSpeed());
+                if((sun.getY()+sun.getYSpeed() <= 0)){
+                    sun.setYSpeed(-sun.getYSpeed());
                 }
-                if(((suns[i].getY()+suns[i].getYSpeed()+suns[i].getHeight()) >= getHeight())){
-                    lostSuns+=1;
-                    suns[i].setIngame(false);
+                if(((sun.getY()+sun.getYSpeed()+sun.getHeight()) >= getHeight())){
+                    suns.remove(sun);
                 }
             }
         }
@@ -93,9 +98,15 @@ public class GamePanel extends JPanel implements KeyListener{
 
         player.zeichnen(g,this);
 
-        for(int i = 0; i< suns.length;i++){
-            suns[i].zeichnen(g,this);
+        for(int i = 0; i< suns.size();i++){
+            suns.get(i).zeichnen(g,this);
         }
+        
+        g.setColor(Color.RED);
+        g.drawString(""+biggestSun+"/" + suns.size(),50,50);
+        
+        g.drawString(""+totalPoints,600,50);
+        
         requestFocus();
     }
 

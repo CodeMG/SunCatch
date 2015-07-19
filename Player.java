@@ -30,6 +30,7 @@ public class Player{
 
     public void berechnen(){
         move();
+        System.out.println(speed);
     }
 
     private void move(){

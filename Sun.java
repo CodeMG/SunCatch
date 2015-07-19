@@ -7,12 +7,14 @@ public class Sun{
     private double xSpeed,ySpeed;
     private boolean ingame;
     private Rectangle rect;
+    private int points;
     public Sun(int x,int y,int width,int height){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         speed = 30;
+        points = 100;
         
         recalculate();
         ingame = true;
@@ -48,6 +50,14 @@ public class Sun{
         ySpeed = ySpeed/length;
         xSpeed*=speed;
         ySpeed*=speed;
+    }
+    
+    public int getPoints(){
+        return points;
+    }
+    
+    public void setPoints(int points){
+        this.points = points;
     }
     
     public boolean isIngame(){
