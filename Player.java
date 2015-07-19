@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Player{
     private int x,y,width,height;
-    private final double SPEED = 40;
+    private final double SPEED = 60;
     private double speed;
     private boolean links,rechts;
     private Rectangle rect;
@@ -30,7 +30,6 @@ public class Player{
 
     public void berechnen(){
         move();
-        System.out.println(speed);
     }
 
     private void move(){

@@ -19,11 +19,10 @@ public class GamePanel extends JPanel implements KeyListener{
 
         biggestSun = 0;
         lostSuns = 0;
-        pointsTilNextSun = 3000;
-        pointCounter = 3000;
+        pointsTilNextSun = 0;
+        pointCounter = pointsTilNextSun;
         
         suns = new ArrayList<Sun>();
-        suns.add(new Sun(400,300,32,32));
         new GameLoop(this);
     }
 
@@ -34,9 +33,9 @@ public class GamePanel extends JPanel implements KeyListener{
             pointCounter-=suns.get(i).getPoints();
         }
         if(pointCounter <= 0){
-            suns.add(new Sun(400,300,32,32));
+            suns.add(new Sun(100,100,32,32));
             pointCounter  = pointsTilNextSun;
-            pointsTilNextSun = (int)Math.pow(biggestSun,2)*500;
+            pointsTilNextSun = 4*biggestSun*500;
         }
         
         collision();
